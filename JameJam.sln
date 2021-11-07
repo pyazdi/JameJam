@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JameJam.core", "JameJam.core\JameJam.core.csproj", "{1077F1B7-5B98-4F5B-9780-AE12A7056BED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JameJam.core.Tests", "JameJam.core.Tests\JameJam.core.Tests.csproj", "{377F1238-65CA-4CEC-95F9-6B52E54BF6DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1077F1B7-5B98-4F5B-9780-AE12A7056BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1077F1B7-5B98-4F5B-9780-AE12A7056BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1077F1B7-5B98-4F5B-9780-AE12A7056BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1077F1B7-5B98-4F5B-9780-AE12A7056BED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{377F1238-65CA-4CEC-95F9-6B52E54BF6DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{377F1238-65CA-4CEC-95F9-6B52E54BF6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{377F1238-65CA-4CEC-95F9-6B52E54BF6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{377F1238-65CA-4CEC-95F9-6B52E54BF6DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54E20C21-2AA1-4AC2-B58E-DC09E39F138B}
+	EndGlobalSection
+EndGlobal
