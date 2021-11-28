@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace JameJam.Core
+namespace JameJam.Binance.Core
 {
-  public class BinanceDataPathBuilder
+  public class DataPathBuilder
   {
     private string BaseUrl = @"https://data.binance.vision/data";
     private string DataPair ="BNBUSDT";
@@ -10,8 +10,8 @@ namespace JameJam.Core
     public string GetPath (
       int year,
       int month,
-      BinanceDataSource source,
-      BinanceDataType dataType,
+      DataSource source,
+      DataType dataType,
       DataInterval dataInterval )
     {
       // https://data.binance.vision/data/spot/monthly/klines/BNBUSDT/1m/BNBUSDT-1m-2018-01.zip

@@ -2,9 +2,9 @@
 
 using System.IO.Compression;
 using System.Net;
-using JameJam.Core;
+using JameJam.Binance.Core;
 
-var binanceDataPathBuilder = new BinanceDataPathBuilder();
+var binanceDataPathBuilder = new DataPathBuilder();
 
 var startDate = new DateTime( 2017, 12, 1 );
 var lastDate = new DateTime( 2021, 10, 1 );
@@ -20,7 +20,7 @@ using ( var client = new WebClient() )
   {
     try
     {
-      var actualPath = binanceDataPathBuilder.GetPath( currentDate.Year, currentDate.Month, BinanceDataSource.Spot, BinanceDataType.Klines, DataInterval.OneDay );
+      var actualPath = binanceDataPathBuilder.GetPath( currentDate.Year, currentDate.Month, DataSource.Spot, DataType.Klines, DataInterval.OneDay );
       Console.WriteLine( $"Getting file {actualPath}" );
 
       byte[] data = client.DownloadData( actualPath );

@@ -1,4 +1,4 @@
-﻿namespace JameJam.Core
+﻿namespace JameJam.Binance.Core
 {
   public enum DataInterval
   {

@@ -1,12 +1,8 @@
-﻿using NUnit.Framework;
-using JameJam.Core;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using FluentAssertions;
+﻿using FluentAssertions;
+using JameJam.Binance.Core;
+using NUnit.Framework;
 
-namespace JameJam.Core.Tests
+namespace JameJam.Binance.Core.Tests
 {
   [TestFixture()]
   public class TestBinanceDataPathBuilder
@@ -14,9 +10,9 @@ namespace JameJam.Core.Tests
     [Test]
     public void GetPathTest()
     {
-      var service = new BinanceDataPathBuilder();
+      var service = new DataPathBuilder();
       
-      var actualPath = service.GetPath( 2018, 1, BinanceDataSource.Spot, BinanceDataType.Klines, DataInterval.OneMinute);
+      var actualPath = service.GetPath( 2018, 1, DataSource.Spot, DataType.Klines, DataInterval.OneMinute);
       actualPath.Should().Be( "https://data.binance.vision/data/spot/monthly/klines/BNBUSDT/1m/BNBUSDT-1m-2018-01.zip" );
     }
 
