@@ -23,16 +23,6 @@ namespace JameJam.Core.Tests
     [Test]
     public void GivenGIVEN_WhenMETHOD_ThenTHEN()
     {
-      var service = new BinanceDataPathBuilder();
-      var actualPath = service.GetPath(2017, 12, BinanceDataSource.Spot, BinanceDataType.Klines, DataInterval.OneMinute);
-
-      BinanceDataFileDownloader downloader = new BinanceDataFileDownloader();
-      // Arrange
-      using (var client = new WebClient())
-      {
-        byte[] data = client.DownloadData(actualPath);
-        downloader.Extract( data );
-      }
 
 
       // Action
