@@ -14,7 +14,7 @@ public class MatchDataService
     _matchCalculatorService = matchCalculatorService;
   }
 
-  private List<(double matchFactor, int index)> GetMatchFactor( IList<KlinesItem> historyData, IList<KlinesItem> currentRange )
+  public List<(double matchFactor, int index)> GetMatchFactor( IList<KlinesItem> historyData, IList<KlinesItem> currentRange )
   {
     if (!historyData.Any())
     {
