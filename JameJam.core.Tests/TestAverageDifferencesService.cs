@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 
 namespace JameJam.Binance.Core.Tests;
 
 [TestFixture]
-public class TestAverageGetDifferenceer
+public class TestAverageDifferencesService
 {
   [Test]
   public void GivenEmptyArray_WhenGetDifference_ThenEmptyList()
   {
     // Arrange
-    AverageDifferencesService service = new AverageDifferencesService();
+    AverageOffsetService service = new AverageOffsetService();
     List<KlinesItem> givenData = new List<KlinesItem>();
     List<KlinesItem> currentRange = new List<KlinesItem>();
 
     // Action
-    List<(double difference, int index)> result = service.GetDifference( givenData, currentRange );
+    List<(double difference, int index)> result = GetDifferences( givenData, currentRange );
 
     // Assert
     result.Should().BeEmpty();
@@ -26,7 +27,6 @@ public class TestAverageGetDifferenceer
   public void GivenRangeWithOneItemAndSameData_WhenDifference_ThenAllZeroResult()
   {
     // Arrange
-    var service = new AverageDifferencesService();
     var givenData = new List<KlinesItem>
     {
       new () {High = 1, Low = 1},
@@ -42,7 +42,7 @@ public class TestAverageGetDifferenceer
 
 
     // Action
-    List<(double difference, int index)> result = service.GetDifference( givenData, currentRange );
+    List<(double difference, int index)> result = GetDifferences( givenData, currentRange );
 
     // Assert
     result.Should().BeEquivalentTo( new List<(double difference, int index)> { (0, 0), (0, 1), (0, 2), (0, 3)} );
@@ -52,7 +52,6 @@ public class TestAverageGetDifferenceer
   public void GivenRangeWithOneItem_WhenGetDifference_ThenCorrectResult()
   {
     // Arrange
-    var service = new AverageDifferencesService();
     var givenData = new List<KlinesItem>
     {
       new () {High = 1.2, Low = 1.1}, // average 1.15
@@ -75,7 +74,7 @@ public class TestAverageGetDifferenceer
     };
 
     // Action
-    var result = service.GetDifference( givenData, currentRange );
+    var result = GetDifferences( givenData, currentRange );
 
     // Assert
     result.Should().BeEquivalentTo( expectedValues );
@@ -85,7 +84,6 @@ public class TestAverageGetDifferenceer
   public void GivenRangeWithTwoItems_WhenMatch_ThenCorrectResult()
   {
     // Arrange
-    var service = new AverageDifferencesService();
     var givenData = new List<KlinesItem>
     {
       new () {High = 1.2, Low = 1.1}, // average 1.15
@@ -102,15 +100,34 @@ public class TestAverageGetDifferenceer
 
     var expectedValues = new List<(double difference, int index)>
     {
-      ( ((1.25 - 1.15) + (1.75 - 1.35))/2.0, 1),
-      ( ((1.25 - 1.35) + (1.75 - 1.55))/2.0, 2),
-      ( ((1.25 - 1.55) + (1.75 - 1.75))/2.0, 3)
+      ( ((1.25 - 1.15) + (1.75 - 1.35)) / 2.0, 1),
+      ( ((1.25 - 1.35) + (1.75 - 1.55)) / 2.0, 2),
+      ( ((1.25 - 1.55) + (1.75 - 1.75)) / 2.0, 3)
     };
 
     // Action
-    var result = service.GetDifference( givenData, currentRange );
+    var result = GetDifferences( givenData, currentRange );
 
     // Assert
     result.Should().BeEquivalentTo( expectedValues );
+  }
+
+  private List<(double difference, int index)> GetDifferences( IList<KlinesItem> givenData, IList<KlinesItem> currentRange )
+  {
+    if ( !givenData.Any() )
+    {
+      return new List<(double difference, int index)>();
+    }
+
+    var service = new AverageOffsetService();
+
+    var result = new List<(double difference, int index)>( givenData.Count );
+    for ( var historyIndex = givenData.Count - 1; historyIndex >= currentRange.Count - 1; historyIndex-- )
+    {
+      var difference = service.GetOffset( givenData, currentRange, historyIndex );
+      result.Add( new(difference, historyIndex) );
+    }
+
+    return result;
   }
 }
