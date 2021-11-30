@@ -16,6 +16,7 @@ var klinesDataProvider = new KlinesDataProvider();
 var numberOfImportedLines = klinesDataProvider.SetData( dataLines );
 Console.WriteLine($"imported {dataLines.Length} line of data");
 
+
 string GetInputPath(string entryName)
 {
   var userFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

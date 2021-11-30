@@ -19,5 +19,7 @@ namespace JameJam.Binance.Core
     public double NumberOfTrades { get; set; }
     public double TakerBuyBaseAssetVolume { get; set; }
     public double TakerBuyQuoteAssetVolume { get; set; }
+
+    public double Average => (High + Low)/2.0;
   };
 }
