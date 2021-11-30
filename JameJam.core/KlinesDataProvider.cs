@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 
 namespace JameJam.Binance.Core;
 
@@ -11,12 +12,13 @@ public class KlinesDataProvider
   public int SetData( string[] givenData )
   {
     var numberOfImports = 0;
-    foreach ( var line in givenData )
+    for ( var lineNumber = 0; lineNumber < givenData.Length; lineNumber++ )
     {
+      var line = givenData[lineNumber];
       var fields = line.Split( ',' );
       if ( fields.Length != 12 )
       {
-        // error
+        throw new InvalidDataException( $"Too few columns at line {lineNumber}" );
       }
 
       Container.Add( GetKlines( fields ) );

@@ -23,7 +23,7 @@ public class TestMatchCalculatorService
     };
 
     // Action
-    var result = service.GetDifferenceFactor( givenData, currentRange, 0, 0 );
+    var result = service.GetMatchFactor( givenData, currentRange, 0, 0 );
 
     // Assert
     result.Should().Be( 0 );
@@ -44,7 +44,7 @@ public class TestMatchCalculatorService
     };
 
     // Action
-    var result = service.GetDifferenceFactor( givenData, currentRange, 0, 5 );
+    var result = service.GetMatchFactor( givenData, currentRange, 0, 5 );
 
     // Assert
     result.Should().BeApproximately( 0.0, 0.0001 );
@@ -65,7 +65,7 @@ public class TestMatchCalculatorService
     };
 
     // Action
-    var result = service.GetDifferenceFactor( givenData, currentRange, 0, 5 );
+    var result = service.GetMatchFactor( givenData, currentRange, 0, 5 );
 
     // Assert
     result.Should().BeApproximately( 0.5, 0.0001 );
@@ -86,7 +86,7 @@ public class TestMatchCalculatorService
     };
 
     // Action
-    var result = service.GetDifferenceFactor( givenData, currentRange, 0, 5 );
+    var result = service.GetMatchFactor( givenData, currentRange, 0, 5 );
 
     // Assert
     result.Should().BeApproximately( 4, 0.0001 );
@@ -109,7 +109,7 @@ public class TestMatchCalculatorService
     };
 
     // Action
-    var result = service.GetDifferenceFactor( givenData, currentRange, 1, 5 );
+    var result = service.GetMatchFactor( givenData, currentRange, 1, 5 );
 
     // Assert
     result.Should().BeApproximately( 3, 0.0001 );

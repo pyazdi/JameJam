@@ -7,10 +7,11 @@ using JameJam.Binance.Core;
 var binanceDataPathBuilder = new DataPathBuilder();
 
 var startDate = new DateTime( 2017, 12, 1 );
-var lastDate = new DateTime( 2021, 10, 1 );
+var lastDate = new DateTime( 2021, 10, 28 );
 var outputFileName = $"daily-{startDate.Year}-{startDate.Month}--{lastDate.Year}-{lastDate.Month}.csv";
 
 var outputPath = GetOutputPath( outputFileName );
+Directory.CreateDirectory( Path.GetPathRoot( outputPath ));
 using ( var outputFileStream = new FileStream( outputPath, FileMode.Create ) )
 
 using ( var client = new WebClient() )
@@ -49,7 +50,7 @@ void AppendToFile ( Stream data, string filePathName )
 
 string GetOutputPath( string entryName )
 {
-  var userFolderPath = Environment.GetFolderPath( Environment.SpecialFolder.UserProfile );
-  var outputFolder = Path.Combine( userFolderPath, "BinanceData", entryName );
+  var userFolderPath = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments);
+  var outputFolder = Path.Combine( userFolderPath,"JameJam", entryName );
   return outputFolder;
 }
