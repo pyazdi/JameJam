@@ -14,7 +14,7 @@ public class MatchDataService
     _matchCalculatorService = matchCalculatorService;
   }
 
-  public List<(double matchFactor, int index)> GetMatchFactor( IList<KlinesItem> historyData, IList<KlinesItem> currentRange )
+  public List<(double matchFactor, int index)> GetMatchFactor( IList<KlinesItem> historyData, List<KlinesItem> currentRange )
   {
     if (!historyData.Any())
     {
@@ -22,10 +22,10 @@ public class MatchDataService
     }
 
     var result = new List<(double difference, int index)>(historyData.Count);
-    for (var historyIndex = historyData.Count - 1; historyIndex >= currentRange.Count - 1; historyIndex--)
+    for (var historyIndex = 0; historyIndex <= historyData.Count - currentRange.Count; historyIndex++)
     {
       var offset = _averageOffsetService.GetOffset(historyData, currentRange, historyIndex);
-      var matchFactor = _matchCalculatorService.GetMatchFactor( historyData, currentRange, historyIndex, offset );
+      var matchFactor = _matchCalculatorService.GetMatchFactor(historyData, currentRange, historyIndex, offset);
 
       result.Add(new(matchFactor, historyIndex));
     }

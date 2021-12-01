@@ -9,17 +9,16 @@ public class MatchCalculatorService : IMatchCalculatorService
   {
     var index = historyIndex;
     var sumOfDifferences = 0.0;
-    foreach (var currentItem in currentRange)
+    foreach ( var currentItem in currentRange )
     {
-      if (index < 0)
+      if ( index >= historyData.Count )
       {
-        throw new IndexOutOfRangeException($"There is not enough elements after the {historyIndex} item in the history data to calculate a rage of {currentRange.Count} data");
+        throw new IndexOutOfRangeException( $"There is not enough elements after the {historyIndex} item in the history data to calculate a rage of {currentRange.Count} data" );
       }
 
       var historyItem = historyData[index];
-      sumOfDifferences += Math.Abs(currentItem.High - offset - historyItem.High);
-      sumOfDifferences += Math.Abs(currentItem.Low - offset - historyItem.Low);
-      index--;
+      sumOfDifferences += Math.Abs( currentItem.Average - offset - historyItem.Average );
+      index++;
     }
 
     return sumOfDifferences;

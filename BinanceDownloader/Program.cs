@@ -7,7 +7,7 @@ using JameJam.Binance.Core;
 var binanceDataPathBuilder = new DataPathBuilder();
 
 var startDate = new DateTime( 2017, 12, 1 );
-var lastDate = new DateTime( 2021, 10, 28 );
+var lastDate = DateTime.Now;
 var outputFileName = $"daily-{startDate.Year}-{startDate.Month}--{lastDate.Year}-{lastDate.Month}.csv";
 
 var outputPath = GetOutputPath( outputFileName );

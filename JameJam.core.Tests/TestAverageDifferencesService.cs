@@ -100,9 +100,9 @@ public class TestAverageDifferencesService
 
     var expectedValues = new List<(double difference, int index)>
     {
-      ( ((1.25 - 1.15) + (1.75 - 1.35)) / 2.0, 1),
-      ( ((1.25 - 1.35) + (1.75 - 1.55)) / 2.0, 2),
-      ( ((1.25 - 1.55) + (1.75 - 1.75)) / 2.0, 3)
+      ( ((1.25 - 1.15) + (1.75 - 1.35)) / 2.0, 0),
+      ( ((1.25 - 1.35) + (1.75 - 1.55)) / 2.0, 1),
+      ( ((1.25 - 1.55) + (1.75 - 1.75)) / 2.0, 2)
     };
 
     // Action
@@ -122,7 +122,7 @@ public class TestAverageDifferencesService
     var service = new AverageOffsetService();
 
     var result = new List<(double difference, int index)>( givenData.Count );
-    for ( var historyIndex = givenData.Count - 1; historyIndex >= currentRange.Count - 1; historyIndex-- )
+    for ( var historyIndex = 0; historyIndex <= givenData.Count - currentRange.Count; historyIndex++ )
     {
       var difference = service.GetOffset( givenData, currentRange, historyIndex );
       result.Add( new(difference, historyIndex) );

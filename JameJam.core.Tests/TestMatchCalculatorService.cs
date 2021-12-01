@@ -68,7 +68,7 @@ public class TestMatchCalculatorService
     var result = service.GetMatchFactor( givenData, currentRange, 0, 5 );
 
     // Assert
-    result.Should().BeApproximately( 0.5, 0.0001 );
+    result.Should().BeApproximately( (2+1)/2.0 - (2+0.5)/2.0, 0.0001 );
   }
 
   [Test]
@@ -89,7 +89,7 @@ public class TestMatchCalculatorService
     var result = service.GetMatchFactor( givenData, currentRange, 0, 5 );
 
     // Assert
-    result.Should().BeApproximately( 4, 0.0001 );
+    result.Should().BeApproximately( (5 +3)/2 - (1+3)/2, 0.0001 );
   }
 
   [Test]
@@ -98,20 +98,20 @@ public class TestMatchCalculatorService
     MatchCalculatorService service = new MatchCalculatorService();
     var givenData = new List<KlinesItem>
     {
-      new () {High = 5, Low = 3},
-      new () {High = 6, Low = 4},
+      new () {High = 5, Low = 3}, // average 4
+      new () {High = 6, Low = 4}, // average 5
     };
 
     var currentRange = new List<KlinesItem>()
     {
-      new () {High = 5 + 5, Low = 3 + 5},
-      new () {High = 4 + 5, Low = 3 + 5},
+      new () {High = 5 + 5, Low = 3 + 5}, // average without offset 4
+      new () {High = 4 + 5, Low = 3 + 5}, // average without offset 3.5
     };
 
     // Action
-    var result = service.GetMatchFactor( givenData, currentRange, 1, 5 );
+    var result = service.GetMatchFactor( givenData, currentRange, 0, 5 );
 
     // Assert
-    result.Should().BeApproximately( 3, 0.0001 );
+    result.Should().BeApproximately( (4-4) + (5-3.5), 0.0001 );
   }
 }

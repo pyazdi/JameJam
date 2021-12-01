@@ -4,6 +4,6 @@ namespace JameJam.Binance.Core
 {
   public interface IAverageOffsetService
   {
-    double GetOffset(IList<KlinesItem> givenData, IList<KlinesItem> currentRange, int historyIndex);
+    double GetOffset(IList<KlinesItem> historyData, IList<KlinesItem> currentRange, int historyIndex);
   }
 }
