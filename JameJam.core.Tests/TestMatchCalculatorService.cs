@@ -14,12 +14,12 @@ public class TestMatchCalculatorService
     MatchCalculatorService service = new MatchCalculatorService();
     var givenData = new List<KlinesItem>
     {
-      new () {High = 1.2, Low = 1.1}, // average 1.15
+      new () {Open = 1.2, Close = 1.1}, // average 1.15
     };
 
     var currentRange = new List<KlinesItem>()
     {
-      new () {High = 1.2, Low = 1.1}, // average 1.15
+      new () {Open = 1.2, Close = 1.1}, // average 1.15
     };
 
     // Action
@@ -35,12 +35,12 @@ public class TestMatchCalculatorService
     MatchCalculatorService service = new MatchCalculatorService();
     var givenData = new List<KlinesItem>
     {
-      new () {High = 1.2, Low = 1.1},
+      new () {Open = 1.2, Close = 1.1},
     };
 
     var currentRange = new List<KlinesItem>()
     {
-      new () {High = 1.2 + 5, Low = 1.1 + 5},
+      new () {Open = 1.2 + 5, Close = 1.1 + 5},
     };
 
     // Action
@@ -56,12 +56,12 @@ public class TestMatchCalculatorService
     MatchCalculatorService service = new MatchCalculatorService();
     var givenData = new List<KlinesItem>
     {
-      new () {High = 2, Low = 1},
+      new () {Open = 2, Close = 1},
     };
 
     var currentRange = new List<KlinesItem>()
     {
-      new () {High = 2 + 5, Low = 0.5 + 5},
+      new () {Open = 2 + 5, Close = 0.5 + 5},
     };
 
     // Action
@@ -77,12 +77,12 @@ public class TestMatchCalculatorService
     MatchCalculatorService service = new MatchCalculatorService();
     var givenData = new List<KlinesItem>
     {
-      new () {High = 5, Low = 3},
+      new () {Open = 5, Close = 3},
     };
 
     var currentRange = new List<KlinesItem>()
     {
-      new () {High = 1 + 5, Low = 3 + 5},
+      new () {Open = 1 + 5, Close = 3 + 5},
     };
 
     // Action
@@ -98,14 +98,14 @@ public class TestMatchCalculatorService
     MatchCalculatorService service = new MatchCalculatorService();
     var givenData = new List<KlinesItem>
     {
-      new () {High = 5, Low = 3}, // average 4
-      new () {High = 6, Low = 4}, // average 5
+      new () {Open = 5, Close = 3}, // average 4
+      new () {Open = 6, Close = 4}, // average 5
     };
 
     var currentRange = new List<KlinesItem>()
     {
-      new () {High = 5 + 5, Low = 3 + 5}, // average without offset 4
-      new () {High = 4 + 5, Low = 3 + 5}, // average without offset 3.5
+      new () {Open = 5 + 5, Close = 3 + 5}, // average without offset 4
+      new () {Open = 4 + 5, Close = 3 + 5}, // average without offset 3.5
     };
 
     // Action

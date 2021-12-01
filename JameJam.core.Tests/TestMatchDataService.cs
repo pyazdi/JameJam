@@ -23,26 +23,26 @@ public class TestMatchDataService
       {
         var data = (IList<KlinesItem>) x[0];
         var index = (int) x[2];
-        return data[index].High;
+        return data[index].Close;
       } );
 
     var serviceUnderTest = new MatchDataService( averageOffsetServiceMock, matchCalculatorServiceMock );
     
     var givenData = new List<KlinesItem>
     {
-      new () { Low  = 1, High = 2},
-      new () { Low  = 3, High = 4},
-      new () { Low  = 5, High = 6},
-      new () { Low  = 7, High = 8},
-      new () { Low  = 9, High = 10},
-      new () { Low = 11, High = 12},
+      new () { Open  = 1, Close = 2},
+      new () { Open  = 3, Close = 4},
+      new () { Open  = 5, Close = 6},
+      new () { Open  = 7, Close = 8},
+      new () { Open  = 9, Close = 10},
+      new () { Open = 11, Close = 12},
     };
 
     var currentRange = new List<KlinesItem>()
     {
-      new () { Low = 20, High = 21},
-      new () { Low = 22, High = 23},
-      new () { Low = 24, High = 25},
+      new () { Open = 20, Close = 21},
+      new () { Open = 22, Close = 23},
+      new () { Open = 24, Close = 25},
     };
 
     var expectedResult = new List<(double factor, int index)>()

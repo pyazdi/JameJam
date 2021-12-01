@@ -5,13 +5,11 @@ using System.IO;
 
 namespace JameJam.Binance.Core;
 
-public class KlinesDataProvider
+public class KlinesDataService
 {
-  public List<KlinesItem> Container { get; } = new List<KlinesItem>(2000);
-
-  public int SetData( string[] givenData )
+  public IList<KlinesItem> GetKlines( string[] givenData )
   {
-    var numberOfImports = 0;
+    List<KlinesItem> container = new List<KlinesItem>(givenData.Length);
     for ( var lineNumber = 0; lineNumber < givenData.Length; lineNumber++ )
     {
       var line = givenData[lineNumber];
@@ -21,14 +19,13 @@ public class KlinesDataProvider
         throw new InvalidDataException( $"Too few columns at line {lineNumber}" );
       }
 
-      Container.Add( GetKlines( fields ) );
-      numberOfImports++;
+      container.Add( GetKline( fields ) );
     }
 
-    return Container.Count;
+    return container;
   }
 
-  private KlinesItem GetKlines( string[] fields )
+  private KlinesItem GetKline( string[] fields )
   {
     var result = new KlinesItem();
     double data;

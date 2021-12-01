@@ -29,15 +29,15 @@ public class TestAverageDifferencesService
     // Arrange
     var givenData = new List<KlinesItem>
     {
-      new () {High = 1, Low = 1},
-      new () {High = 1, Low = 1},
-      new () {High = 1, Low = 1},
-      new () {High = 1, Low = 1},
+      new () {Open = 1, Close = 1},
+      new () {Open = 1, Close = 1},
+      new () {Open = 1, Close = 1},
+      new () {Open = 1, Close = 1},
     };
 
     var currentRange = new List<KlinesItem>()
     {
-      new () {Open = 1, High = 1, Low = 1, Close = 1},
+      new () {Open = 1, Close = 1},
     };
 
 
@@ -54,15 +54,15 @@ public class TestAverageDifferencesService
     // Arrange
     var givenData = new List<KlinesItem>
     {
-      new () {High = 1.2, Low = 1.1}, // average 1.15
-      new () {High = 1.4, Low = 1.3}, // average 1.35
-      new () {High = 1.6, Low = 1.5}, // average 1.55
-      new () {High = 1.8, Low = 1.7}, // average 1.75
+      new () {Open = 1.2, Close = 1.1}, // average 1.15
+      new () {Open = 1.4, Close = 1.3}, // average 1.35
+      new () {Open = 1.6, Close = 1.5}, // average 1.55
+      new () {Open = 1.8, Close = 1.7}, // average 1.75
     };
 
     var currentRange = new List<KlinesItem>()
     {
-      new () {High = 2, Low = 1}, // average 1.5
+      new () {Open = 2, Close = 1}, // average 1.5
     };
 
     var expectedValues = new List<(double difference, int index)>
@@ -86,16 +86,16 @@ public class TestAverageDifferencesService
     // Arrange
     var givenData = new List<KlinesItem>
     {
-      new () {High = 1.2, Low = 1.1}, // average 1.15
-      new () {High = 1.4, Low = 1.3}, // average 1.35
-      new () {High = 1.6, Low = 1.5}, // average 1.55
-      new () {High = 1.8, Low = 1.7}, // average 1.75
+      new () {Open = 1.2, Close = 1.1}, // average 1.15
+      new () {Open = 1.4, Close = 1.3}, // average 1.35
+      new () {Open = 1.6, Close = 1.5}, // average 1.55
+      new () {Open = 1.8, Close = 1.7}, // average 1.75
     };
 
     var currentRange = new List<KlinesItem>()
     {
-      new () {High = 1.5, Low = 1}, // average 1.25
-      new () {High = 2, Low = 1.5}, // average 1.75
+      new () {Open = 1.5, Close = 1}, // average 1.25
+      new () {Open = 2, Close = 1.5}, // average 1.75
     };
 
     var expectedValues = new List<(double difference, int index)>

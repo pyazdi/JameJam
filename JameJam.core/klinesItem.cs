@@ -20,6 +20,12 @@ namespace JameJam.Binance.Core
     public double TakerBuyBaseAssetVolume { get; set; }
     public double TakerBuyQuoteAssetVolume { get; set; }
 
-    public double Average => (High + Low)/2.0;
+    public double Average => (Open + Close)/2.0;
+    public double Percent => (Open - Close) / Low;
+
+    public override string ToString()
+    {
+      return $"{OpenTime:d}, O:{Open:C}, L:{Low:C}, H:{High:C}, C:{Close:C}";
+    }
   };
 }

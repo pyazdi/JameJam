@@ -6,44 +6,57 @@ using JameJam.Binance.Core.Tests;
 var historyDataFileName = "daily-2017-12--2021-11.csv";
 var inputFilePath = GetInputPath( historyDataFileName );
 
-Console.WriteLine($"Loading history data from {inputFilePath}");
+Console.WriteLine( $"Loading history data from {inputFilePath}" );
 
-var dataLines = File.ReadAllLines(inputFilePath);
+var dataLines = File.ReadAllLines( inputFilePath );
 
-Console.WriteLine($"Loaded {dataLines.Length} line of data");
+Console.WriteLine( $"Loaded {dataLines.Length} line of data" );
 
-var klinesDataProvider = new KlinesDataProvider();
+var klinesDataService = new KlinesDataService();
+var historyData = klinesDataService.GetKlines(dataLines);
 
-var numberOfImportedLines = klinesDataProvider.SetData( dataLines );
-Console.WriteLine($"imported {dataLines.Length} line of data");
+Console.WriteLine($"imported {historyData.Count} line of data");
+Console.WriteLine($"Last data {historyData.Last()}");
+Console.WriteLine(  );
+Console.WriteLine(  );
+Console.WriteLine( "Enter a task number and press enter" );
+Console.WriteLine( "1. Predict the next day" );
+Console.WriteLine( "2. Test prediction for the last 100 days" );
 
-var matchDataService = new MatchDataService( new AverageOffsetService(), new MatchCalculatorService() );
+var taskId = Console.ReadLine();
+
 var matchPatternSize = 15;
-var historyData = klinesDataProvider.Container;
-var matches = matchDataService.GetMatchFactor( historyData, historyData.TakeLast( matchPatternSize ).ToList() );
+var predictionsCount = 10;
 
-File.WriteAllLines( @"D:\temp\bb.txt", matches.Select( item => $"{item.matchFactor:F2},{item.index}" ) );
-
-IEnumerable<(double matchFactor, int index)> bestMatches = matches.OrderBy( item => item.matchFactor ).Take( 10 );
-foreach ( var bestMatch in bestMatches)
+var predictService = new PredictService( new MatchDataService( new AverageOffsetService(), new MatchCalculatorService() ) );
+if ( taskId.StartsWith( "1" ) )
 {
-  if ( bestMatch.matchFactor == 0 && bestMatch.index == historyData.Count-matchPatternSize )
+  var predictions = predictService.Predict(historyData, matchPatternSize, predictionsCount);
+  foreach (var prediction in predictions)
   {
-    continue;
+    Console.WriteLine($"Factor: {prediction.matchFactor:F0} " +
+                      $"With %{prediction.percent * 100:F1}");
   }
-  var nextDayIndex = bestMatch.index + matchPatternSize;
-  var difference = historyData[nextDayIndex].High - historyData[nextDayIndex].Low;
-  var percent = difference / historyData[nextDayIndex].Low;
-  Console.WriteLine($"Factor: {bestMatch.matchFactor:F0} for " +
-                    $" {historyData.Last().OpenTime.AddDays( 1 ).ToShortDateString()} ->" +
-                    $" {historyData[nextDayIndex].OpenTime.ToShortDateString()} is " +
-                    $" {(difference>0?'+':'-')} {Math.Abs(difference):C} ({percent:P1}) ");
+}
+else if ( taskId.StartsWith( "2" ) )
+{
+  for (int i = 1; i < 100; i++)
+  {
+    var virtualCurrentDayIndex = historyData.Count - i;
+    var predictions = predictService.Predict(historyData.Take(virtualCurrentDayIndex).ToList(), matchPatternSize, 1);
+    foreach (var prediction in predictions)
+    {
+      Console.WriteLine($"{historyData[virtualCurrentDayIndex].OpenTime:d} - F:{prediction.matchFactor:F0} - " +
+                        $"Prediction %{prediction.percent*100:F1} ->" +
+                        $"Actual %{historyData[virtualCurrentDayIndex].Percent * 100:F1}");
+    }
+  }
 }
 
 
-string GetInputPath(string entryName)
+string GetInputPath( string entryName )
 {
-  var userFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-  var outputFolder = Path.Combine(userFolderPath, "JameJam", entryName);
+  var userFolderPath = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
+  var outputFolder = Path.Combine( userFolderPath, "JameJam", entryName );
   return outputFolder;
 }

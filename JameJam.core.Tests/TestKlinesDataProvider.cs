@@ -18,13 +18,13 @@ public class TestKlinesDataProvider
       "1625097600000,303.75000000,304.00000000,281.00000000,287.43000000,1388151.02650000,1625183999999,401830865.47626700,573928,688603.50030000,199336774.04715800,0"
     };
 
-    var dataProvider = new KlinesDataProvider();
+    var dataProvider = new KlinesDataService();
 
     // Action
-    int numberOfImportedDataLines = dataProvider.SetData( givenData );
+    var actualData = dataProvider.GetKlines( givenData );
 
     // Assert
-    numberOfImportedDataLines.Should().Be( 2 );
+    actualData.Should().HaveCount( 2 );
   }
 
   [Test]
@@ -36,25 +36,24 @@ public class TestKlinesDataProvider
       "1512086400000,1.95000000,2.13850000,1.88010000,2.05270000,321456.28000000,1512172799999,650183.35144600,2307       ,203762.85000000,413887.71514500        , 104723793.67154244"
     };
 
-    var dataProvider = new KlinesDataProvider();
+    var dataProvider = new KlinesDataService();
 
     // Action
-    int numberOfImportedDataLines = dataProvider.SetData( givenData );
+    var actualData = dataProvider.GetKlines(givenData);
 
     // Assert
-    dataProvider.Container.Should().HaveCount( 1 );
-    var actualData = dataProvider.Container.First();
-    actualData.OpenTime.Should().Be( new DateTime( 2017, 12, 1 ) );
-    actualData.Open.Should().Be( 1.95000000 );
-    actualData.High.Should().Be( 2.13850000 );
-    actualData.Low.Should().Be( 1.88010000 );
-    actualData.Close.Should().Be( 2.05270000 );
-    actualData.Volume.Should().Be( 321456.28000000 );
-    actualData.CloseTime.Should().Be( new DateTime( 2017, 12, 1,23,59,59,999 ) );
-    actualData.Quote.Should().Be( 650183.35144600 );
-    actualData.AssetVolume.Should().Be( 2307 );
-    actualData.NumberOfTrades.Should().Be( 203762.85000000 );
-    actualData.TakerBuyBaseAssetVolume.Should().Be( 413887.71514500 );
-    actualData.TakerBuyQuoteAssetVolume.Should().Be( 104723793.67154244 );
+    actualData.Should().HaveCount( 1 );
+    actualData.First().OpenTime.Should().Be( new DateTime( 2017, 12, 1 ) );
+    actualData.First().Open.Should().Be( 1.95000000 );
+    actualData.First().High.Should().Be( 2.13850000 );
+    actualData.First().Low.Should().Be( 1.88010000 );
+    actualData.First().Close.Should().Be( 2.05270000 );
+    actualData.First().Volume.Should().Be( 321456.28000000 );
+    actualData.First().CloseTime.Should().Be( new DateTime( 2017, 12, 1,23,59,59,999 ) );
+    actualData.First().Quote.Should().Be( 650183.35144600 );
+    actualData.First().AssetVolume.Should().Be( 2307 );
+    actualData.First().NumberOfTrades.Should().Be( 203762.85000000 );
+    actualData.First().TakerBuyBaseAssetVolume.Should().Be( 413887.71514500 );
+    actualData.First().TakerBuyQuoteAssetVolume.Should().Be( 104723793.67154244 );
   }
 }
