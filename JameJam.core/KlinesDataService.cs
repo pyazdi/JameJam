@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 
 namespace JameJam.Binance.Core;
@@ -33,37 +34,37 @@ public class KlinesDataService
     double.TryParse(fields[0], out data);
     result.OpenTime = TimeStampToUtcDateTime(data);
 
-    double.TryParse(fields[1], out data);
+    double.TryParse(fields[1], NumberStyles.Any, CultureInfo.InvariantCulture, out data);
     result.Open = data;
 
-    double.TryParse(fields[2], out data);
+    double.TryParse(fields[2], NumberStyles.Any, CultureInfo.InvariantCulture, out data);
     result.High = data;
 
-    double.TryParse(fields[3], out data);
+    double.TryParse(fields[3], NumberStyles.Any, CultureInfo.InvariantCulture, out data);
     result.Low = data;
 
-    double.TryParse(fields[4], out data);
+    double.TryParse(fields[4], NumberStyles.Any, CultureInfo.InvariantCulture, out data);
     result.Close = data;
 
-    double.TryParse(fields[5], out data);
+    double.TryParse(fields[5], NumberStyles.Any, CultureInfo.InvariantCulture, out data);
     result.Volume = data;
 
     double.TryParse(fields[6], out data);
     result.CloseTime = TimeStampToUtcDateTime(data);
 
-    double.TryParse(fields[7], out data);
+    double.TryParse(fields[7], NumberStyles.Any, CultureInfo.InvariantCulture, out data);
     result.Quote = data;
 
-    double.TryParse(fields[8], out data);
+    double.TryParse(fields[8], NumberStyles.Any, CultureInfo.InvariantCulture, out data);
     result.AssetVolume = data;
 
-    double.TryParse(fields[9], out data);
+    double.TryParse(fields[9], NumberStyles.Any, CultureInfo.InvariantCulture, out data);
     result.NumberOfTrades = data;
 
-    double.TryParse(fields[10], out data);
+    double.TryParse(fields[10], NumberStyles.Any, CultureInfo.InvariantCulture, out data);
     result.TakerBuyBaseAssetVolume = data;
 
-    double.TryParse(fields[11], out data);
+    double.TryParse(fields[11], NumberStyles.Any, CultureInfo.InvariantCulture, out data);
     result.TakerBuyQuoteAssetVolume = data;
 
     return result;
